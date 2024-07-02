@@ -1,12 +1,13 @@
 import telebot
 import requests
+from bs4 import BeautifulSoup as BS
 from bs4 import BeautifulSoup
 #from telebot from types
 TOKEN = '7296036355:AAGPotHeuNO43_QyWtFeU3wMCqvteMLnmbE'
-avito="https://www.avito.ru/moskva/rabota"
+#avito="https://www.avito.ru/moskva/rabota"
 bot=telebot.TeleBot(TOKEN)
 '''@bot.message_handler(comands=['start'])
-def start(message):'''
+def start(message):
 @bot.message_handler(content_types='text')
 def tolk(message):
     bot.send_message(message.chat.id, message.text)
@@ -71,17 +72,32 @@ def tolk(message):
         if (t[i]=='я'):
             f=f+"ja"
         if (t[i]=='ю'):
-            f=f+"ju"
+            f=f+"ju"'''
 
-    е="https://hh.ru/vacancies/"+f
+    #е="https://hh.ru/vacancies/"+f
     #print("https://hh.ru/vacancies/"+f)
-    print(requests.get("https://hh.ru/vacancies/"+f).text)
-bot.polling(none_stop=True)
+    #print(requests.get("https://hh.ru/vacancies/"+f).text)
+#bot.polling(none_stop=True)
 
+#abito1 = "https://www.avito.ru/moskva/rabota?q=программист"
+params={
+    "q" : " программист"
+}
+avito="https://www.avito.ru/moskva/rabota/"
 
-p=requests.get(avito).text
+#p=requests.get(avito).text
+p=requests.get(avito, params=params)
+a=BeautifulSoup(p.text,'lxml')
+bloc = a.find('div',id='')
+print (bloc)
+print(p.status_code)
+#html = BS(p.content, 'html.parser')
+#for el in html.select(".items-items-kAJAgr>."):
+#    title = el.select
+#print(p.text)
+'''with open('result.html','w') as file:
+    file.write(p)'''
 
-a=BeautifulSoup(p,'lxml')
 
 #print(p)
 
