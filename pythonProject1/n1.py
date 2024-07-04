@@ -1,30 +1,127 @@
-import requests
+'''f=""
+    for i in range(0,len(t)):
+        if (t[i]=='а'):
+            f=f+"a"
+        if (t[i]=='б'):
+            f=f+"b"
+        if (t[i]=='в'):
+            f=f+"v"
+        if (t[i]=='г'):
+            f=f+"g"
+        if (t[i]=='д'):
+            f=f+"d"
+        if (t[i]=='e'):
+            f=f+"e"
+        if (t[i]=='ё'):
+            f=f+"yo"
+        if (t[i]=='ж'):
+            f=f+"zh"
+        if (t[i]=='з'):
+            f=f+"z"
+        if (t[i]=='и'):
+            f=f+"i"
+        if (t[i]=='й'):
+            f=f+"y"
+        if (t[i]=='к'):
+            f=f+"k"
+        if (t[i]=='л'):
+            f=f+"l"
+        if (t[i]=='м'):
+            f=f+"m"
+        if (t[i]=='н'):
+            f=f+"n"
+        if (t[i]=='о'):
+            f=f+"o"
+        if (t[i]=='п'):
+            f=f+"p"
+        if (t[i]=='р'):
+            f=f+"r"
+        if (t[i]=='с'):
+            f=f+"s"
+        if (t[i]=='т'):
+            f=f+"t"
+        if (t[i]=='у'):
+            f=f+"u"
+        if (t[i]=='ф'):
+            f=f+"f"
+        if (t[i]=='х'):
+            f=f+"kh"
+        if (t[i]=='ц'):
+            f=f+"c"
+        if (t[i]=='ч'):
+            f=f+"ch"
+        if (t[i]=='ш'):
+            f=f+"sh"
+        if (t[i]=='ы'):
+            f=f+"y"
+        if (t[i]=='я'):
+            f=f+"ja"
+        if (t[i]=='ю'):
+            f=f+"ju"'''
+'''def inf(t4,m,message):
+    for t5 in range(5):
+        params = {
+            "page": str(t5),
+            "q": t4
+        }
+        # avito="https://www.avito.ru/moskva/rabota/"
+        habr1 = "https://career.habr.com"
+        habr = "https://career.habr.com/vacancies"
+        # p=requests.get(avito).text
+        p = requests.get(habr, params=params)
+        a = BeautifulSoup(p.text, 'lxml')
+        bloc = a.find_all('div', 'section-box', )
+        #bloc1 = a.find_all('div', '/vacancies/')
+        # print (bloc[1])
+        # print("-------")
 
-cookies = {
-    'vid': 'db0e9f93151b5389434d',
-    'mkmgsgp': 'SFZP2Y',
-    'mkmgrgp': 'SFZP2Y',
-}
+        # for i in range(0,len(bloc)):
+        t = ""
+        t1 = ""
+        h = ""
+        r = False
+        for i in range(1, len(bloc)):
+            s = str(bloc[i])
+            t2 = 0
+            for g in range(1, len(s)):
+                if ((s[g] == '₽')):
+                    for z in range(0, g):
+                        if ((s[z] == '/') & (s[z + 1] == 'v')):
+                            t2 = t2 + 1
+                            if (t2 == 2):
+                                t2 = 0
+                                for f in range(z, z + 50):
+                                    if (t2 == 0):
+                                        if (s[f] != '"'):
+                                            t1 = t1 + s[f]
+                                        if (s[f] == '"'):
+                                            t2 = 1
+                                    if (t2 == 1):
+                                        if (s[f + 1] != '<') & (s[f + 1] != '>'):
+                                            h = h + s[f + 1]
+                                        if (s[f + 1] == '<'):
+                                            t2 = 2
 
-headers = {
-    'accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
-    'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
-    # 'cookie': 'vid=db0e9f93151b5389434d; mkmgsgp=SFZP2Y; mkmgrgp=SFZP2Y',
-    'priority': 'i',
-    'referer': 'https://www.avito.ru/',
-    'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
-    'sec-ch-ua-mobile': '?0',
-    'sec-ch-ua-platform': '"Windows"',
-    'sec-fetch-dest': 'image',
-    'sec-fetch-mode': 'no-cors',
-    'sec-fetch-site': 'cross-site',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-}
+                        # print(z)
 
-params = {
-    'id': '8',
-    'vid': 'SNkHj8xAZbCaADyb37WbKA',
-}
+                    for n in range(g - 25, g + 1):
 
-response = requests.get('https://dm.hybrid.ai/match', params=params, cookies=cookies, headers=headers)
-print(response.text)
+                        if (s[n - 1] == ">"):
+                            r = True
+                        if (r):
+                            t = t + s[n]
+                    r = False
+                    if ((requests.get(habr1 + t1).status_code) != 404):
+                        #print(h)
+                        #print(t)
+                        #print(habr1 + t1)
+                        bot.send_message(message.chat.id, h)
+                        bot.send_message(message.chat.id, t)
+                        bot.send_message(message.chat.id, habr1 + t1)
+                        bot.send_message(message.chat.id, '===================')
+                        m=m-1
+                    t = ""
+                    t1 = ""
+                    h = ""
+                    if (m==0):
+                        return 0'''

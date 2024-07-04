@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup as BS
 from bs4 import BeautifulSoup
-for t5 in range(70):
+for t5 in range(2):
     '''params={
         "page" : str(t5),
         "q" : " программист"
@@ -62,12 +62,12 @@ for t5 in range(70):
                 t1=""
                 h=""
                 print("============")'''
-    params = { "p": str(t5),
-                "q":"программист"}
+    params = { #"p": str(t5),
+                "q":"дизайнер"}
     avito="https://www.avito.ru/moskva/rabota"
     p1 = requests.get(avito, params=params)
     a1 = BeautifulSoup(p1.text, 'lxml')
-    bloc1 = a1.find('div')
+    bloc1 = a1.find_all('div','data-marker="item"')
     print(bloc1)
     print(p1.status_code)
 
