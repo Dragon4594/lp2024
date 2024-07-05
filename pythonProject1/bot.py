@@ -1,10 +1,48 @@
 import telebot
 import requests
+import psycopg2
 from bs4 import BeautifulSoup as BS
 from bs4 import BeautifulSoup
+from pymongo import MongoClient
+
+mon = MongoClient(
+    "mongodb+srv://Dragon4594:1242EefD933@cluster0.hyechba.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+colection = mon.one_database.one_colection
 #from telebot from types
 TOKEN = '7296036355:AAGPotHeuNO43_QyWtFeU3wMCqvteMLnmbE'
+'''host ="localhost"
+user ="postgres"
+password = "1242EefD933"
+db_name = "Databases(1)"
+port = "5432"
+connection = psycopg2.connect(
+    host=host,
+    user=user,
+    password=password,
+    database=db_name,
+    port=port
+)
+cursor = connection.cursor()
+cursor.execute(
+    "SELECT version();"
+)
+print(f"Server version: {cursor.fetchone()}")'''
 #avito="https://www.avito.ru/moskva/rabota"
+def f(s):
+    return False
+    '''try:
+        line=""
+        for line in colection.find(
+            {"idd": {"$eq": s}}
+        ):
+            if (line!=""):
+                return True
+        return False
+    except:
+        return False'''
+
+
+
 bot=telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -73,10 +111,45 @@ def tolk(message):
                             #print(h)
                             #print(t)
                             #print(habr1 + t1)
-                            bot.send_message(message.chat.id, h)
-                            bot.send_message(message.chat.id, t)
-                            bot.send_message(message.chat.id, habr1 + t1)
-                            bot.send_message(message.chat.id, '===================')
+                            #updata(s1+t4,h,t,habr1+t1)
+                            h5=str(s1)+t4
+                            '''if (f(h5)==True):
+                                colection.updata_one(
+                                    {"idd":str(s1)+t4},
+                                    {"$pop":{"vakansii_name"}},
+                                    {"$pop": {"vakansii_zp"}},
+                                    {"$pop": {"vakansii_https"}},
+                                    {"$push": {"vakansii_name":h}},
+                                    {"$push": {"vakansii_zp":t}},
+                                    {"$push": {"vakansii_https":habr1+t1}},
+
+                                )
+                            #else:
+                                user = {
+                                    "idd":str(s1)+t4,
+                                    "id": str(s1),
+                                    "namevakansii":t4,
+                                    "vakansii_name": h,
+                                    "vakansii_zp": t,
+                                    "vakansii_https":habr1 + t1,
+                                    "=======":"======="
+
+                                }'''
+                            user = {
+                                "idd": str(s1) + t4,
+                                "id": str(s1),
+                                "namevakansii": t4,
+                                "vakansii_name": h,
+                                "vakansii_zp": t,
+                                "vakansii_https": habr1 + t1,
+                                "=======": "======="
+
+                            }
+                            colection.insert_one(user)
+                            #bot.send_message(message.chat.id, h)
+                            #bot.send_message(message.chat.id, t)
+                            #bot.send_message(message.chat.id, habr1 + t1)
+                            #bot.send_message(message.chat.id, '===================')
                             s1=s1+1
                         t = ""
                         t1 = ""

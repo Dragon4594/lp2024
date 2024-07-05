@@ -1,3 +1,12 @@
+import psycopg2
+from pymongo import MongoClient
+mon = MongoClient("mongodb+srv://Dragon4594:1242EefD933@cluster0.hyechba.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+colection = mon.one_database.one_colection
+user = {
+    "id" : 1,
+
+}
+colection.insert_one(user)
 '''f=""
     for i in range(0,len(t)):
         if (t[i]=='а'):
@@ -125,3 +134,20 @@
                     h = ""
                     if (m==0):
                         return 0'''
+'''host ="127.0.0.1"
+user ="postgres"
+password = "1242EefD933"
+db_name = "Databases(1)"
+port = "5432"
+connection = psycopg2.connect(
+    database="rasp_bd",
+    user="postgres",
+    password="1242EefD933",
+    host="localhost",
+    port="5432"
+)
+cursor = connection.cursor()
+cursor.execute(
+    "SELECT version();"
+)
+print(f"Server version: {cursor.fetchone()}")'''
