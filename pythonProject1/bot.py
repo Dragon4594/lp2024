@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
 mon = MongoClient(
-    "mongodb+srv://Dragon4594:1242EefD933@cluster0.hyechba.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+    "mongodb+srv://sombor933:1242EefD933@cluster0.zp7qxks.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 colection = mon.one_database.one_colection
 #from telebot from types
 TOKEN = '7296036355:AAGPotHeuNO43_QyWtFeU3wMCqvteMLnmbE'
