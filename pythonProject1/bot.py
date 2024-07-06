@@ -10,36 +10,12 @@ mon = MongoClient(
 colection = mon.one_database.one_colection
 #from telebot from types
 TOKEN = '7296036355:AAGPotHeuNO43_QyWtFeU3wMCqvteMLnmbE'
-'''host ="localhost"
-user ="postgres"
-password = "1242EefD933"
-db_name = "Databases(1)"
-port = "5432"
-connection = psycopg2.connect(
-    host=host,
-    user=user,
-    password=password,
-    database=db_name,
-    port=port
-)
-cursor = connection.cursor()
-cursor.execute(
-    "SELECT version();"
-)
-print(f"Server version: {cursor.fetchone()}")'''
-#avito="https://www.avito.ru/moskva/rabota"
-def f(s):
-    return False
-    '''try:
+
+'''def f(s):
+
         line=""
-        for line in colection.find(
-            {"idd": {"$eq": s}}
-        ):
-            if (line!=""):
-                return True
-        return False
-    except:
-        return False'''
+        for line in colection.find({"_id":  s}):
+            return line'''
 
 
 
@@ -52,9 +28,14 @@ def start(message):
 def tolk(message):
     #bot.send_message(message.chat.id, '/программист')
     #print(message.text)
-    t4=message.text
+    file=open('v.txt','w',encoding="utf-8")
+    t4=str(message.text)
     s1=0
-    if (t4!='/start'):
+
+    if ((t4!="/start")|(t4!="/+5")|(t4!="/-5")):
+        bot.send_message(message.chat.id, 'пожалуйста подождите')
+        n2=0
+
         for t5 in range(5):
             params = {
                 "page": str(t5),
@@ -97,11 +78,7 @@ def tolk(message):
                                                 h = h + s[f + 1]
                                             if (s[f + 1] == '<'):
                                                 t2 = 2
-
-                            # print(z)
-
                         for n in range(g - 25, g + 1):
-
                             if (s[n - 1] == ">"):
                                 r = True
                             if (r):
@@ -113,50 +90,52 @@ def tolk(message):
                             #print(habr1 + t1)
                             #updata(s1+t4,h,t,habr1+t1)
                             h5=str(s1)+t4
-                            '''if (f(h5)==True):
-                                colection.updata_one(
-                                    {"idd":str(s1)+t4},
-                                    {"$pop":{"vakansii_name"}},
-                                    {"$pop": {"vakansii_zp"}},
-                                    {"$pop": {"vakansii_https"}},
-                                    {"$push": {"vakansii_name":h}},
-                                    {"$push": {"vakansii_zp":t}},
-                                    {"$push": {"vakansii_https":habr1+t1}},
-
-                                )
-                            #else:
+                            line=""
+                            o=0
+                            for line in colection.find({"_id": h5}):
+                                o=o+1
+                            if (line!=""):
+                                colection.update_one({"_id":str(s1)+t4},{"$set": {"vakansii_name":h}})
+                                colection.update_one({"_id": str(s1) + t4},{"$set": {"vakansii_zp":t}})
+                                colection.update_one({"_id": str(s1) + t4},{"$set": {"vakansii_https":habr1+t1}})
+                                #print("-")
+                            if(line==""):
                                 user = {
-                                    "idd":str(s1)+t4,
-                                    "id": str(s1),
+                                    "_id":str(s1)+t4,
+                                    "idd": (s1),
                                     "namevakansii":t4,
                                     "vakansii_name": h,
                                     "vakansii_zp": t,
                                     "vakansii_https":habr1 + t1,
                                     "=======":"======="
+                                }
+                                #print("+")
+                                colection.insert_one(user)
 
-                                }'''
-                            user = {
-                                "idd": str(s1) + t4,
-                                "id": str(s1),
+                            '''user = {
+                                "_id": str(s1) + t4,
+                                "idd": (s1),
                                 "namevakansii": t4,
                                 "vakansii_name": h,
                                 "vakansii_zp": t,
                                 "vakansii_https": habr1 + t1,
                                 "=======": "======="
+                            
+                            }'''
 
-                            }
-                            colection.insert_one(user)
-                            #bot.send_message(message.chat.id, h)
-                            #bot.send_message(message.chat.id, t)
-                            #bot.send_message(message.chat.id, habr1 + t1)
-                            #bot.send_message(message.chat.id, '===================')
+                            bot.send_message(message.chat.id, h)
+                            bot.send_message(message.chat.id, t)
+                            bot.send_message(message.chat.id, habr1 + t1)
+                            bot.send_message(message.chat.id, '===================')
                             s1=s1+1
                         t = ""
                         t1 = ""
                         h = ""
     #inf(t4,5,message)
+        bot.send_message(message.chat.id, "найдено вакансий "+str(s1) +" по профессии "+t4)
                     #print("============")
-        bot.send_message(message.chat.id, str(s1))
+
+
 
 bot.polling(none_stop=True)
 

@@ -1,12 +1,32 @@
 import psycopg2
 from pymongo import MongoClient
+import pymongo
 mon = MongoClient("mongodb+srv://Dragon4594:1242EefD933@cluster0.hyechba.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 colection = mon.one_database.one_colection
-user = {
-    "id" : 1,
-
+'''user = {
+    "_id": "33g",
+    "iddd" : "3"
 }
-colection.insert_one(user)
+colection.insert_one(user)'''
+
+def i(s):
+    for l in colection.find({"_id":  s}):
+        return l
+print(i("33g")!="None")
+print("----")
+c={"_id": "33g"}
+c1={"$set": {"iddd": "4"}}
+colection.update_one(c,c1)
+print("===")
+print(i("33g"))
+l=""
+for l in colection.find({"_id":  "33g"}):
+    print("+")
+    print(l)
+print(l=="")
+for i in range(2):
+    for i1 in range(2):
+        print(i|i1)
 '''f=""
     for i in range(0,len(t)):
         if (t[i]=='а'):
